@@ -6,6 +6,6 @@ cmake_minimum_required (VERSION 3.8)
 # Add source to this project's executable.
 add_executable (CMakeTarget "Øving1.cpp" "Øving1.h")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=thread -pthread -std=c++1y -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 # TODO: Add tests and install targets if needed.

@@ -158,7 +158,7 @@ public:
 
 int main() {
     PrimeChecker primeChecker;
-    vector<int> somePrimes = primeChecker.allPrimes(1000000, 1000010, 5);
+    vector<int> somePrimes = primeChecker.allPrimes(100, 200, 5);
     cout << somePrimes.size() << " primes found: " << endl;
     primeChecker.printPrimes(somePrimes);
     return 0;
