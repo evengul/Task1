@@ -48,6 +48,7 @@ private:
         vector<int> primes = {};
         for (int i = start; i < end; i++) {
             if (isPrime(i)) {
+                cout << i << " is a prime between " << start << " and " << end << endl;
                 primes.push_back(i);
             }
         }
@@ -123,11 +124,13 @@ public:
             //The thread ends at it's given value
             int threadEnd = i[1];
             //Add a thread
-            allThreads.push_back(thread([&j, &primeLock, &allPrimes, threadBegin, threadEnd, this] {
+            allThreads.push_back(thread([&primeLock, &allPrimes, threadBegin, threadEnd, this] {
+                //Find the primes outside of the lock. This is the actual work.
+                vector<int> threadPrimeVector = threadPrimes(threadBegin, threadEnd);
                 //Lock the allPrimes variable
                 primeLock.lock();
                 //Add the primes found to the allPrimes vector
-                allPrimes = concat(allPrimes, threadPrimes(threadBegin, threadEnd));
+                allPrimes = concat(allPrimes, threadPrimeVector);
                 //Unlock the allPrimes variable
                 primeLock.unlock();
             }));
@@ -155,7 +158,7 @@ public:
 
 int main() {
     PrimeChecker primeChecker;
-    vector<int> somePrimes = primeChecker.allPrimes(200, 500, 5);
+    vector<int> somePrimes = primeChecker.allPrimes(1000000, 1000010, 5);
     cout << somePrimes.size() << " primes found: " << endl;
     primeChecker.printPrimes(somePrimes);
     return 0;
